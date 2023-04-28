@@ -1,0 +1,54 @@
+package model;
+
+import java.sql.Date;
+
+public class Reserva {
+	private static final double TARIFA_PER_MS = (10/(24*3600*1000));
+	// la tarifa diaria 10 usd
+	
+	private int id;
+	private Date fechaEntrada;
+	private Date fechaSalida;
+	private double valorReserva;
+	private String formaPago;
+	
+	
+	public Reserva(Date fechaEntrada, Date fechaSalida, String formaPago) {
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.formaPago = formaPago;
+		this.setValorReserva(this.fechaEntrada,this.fechaSalida);
+	}
+	
+	private void setValorReserva(Date entrada, Date salida) {
+		this.valorReserva = (salida.getTime() - entrada.getTime())*TARIFA_PER_MS;
+	}
+
+	public Date getFechaEntrada() {
+		return fechaEntrada;
+	}
+
+	public Date getFechaSalida() {
+		return fechaSalida;
+	}
+
+	public double getValorReserva() {
+		return valorReserva;
+	}
+
+	public String getFormaPago() {
+		return formaPago;
+	}
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+}

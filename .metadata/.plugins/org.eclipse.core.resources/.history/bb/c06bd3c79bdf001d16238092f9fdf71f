@@ -1,0 +1,19 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import factory.ConnectionFactory;
+
+public class validacionDAO {
+	
+	public void consultarUsuario(String username) {
+		try(Connection con = new ConnectionFactory().setConnection()){
+			System.out.println("error");
+		}catch(SQLException e) {
+			throw new RuntimeException();
+		}
+	}
+	
+
+}

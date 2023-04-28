@@ -1,0 +1,12 @@
+package controller;
+
+import dao.ReservaDAO;
+
+public class ControllerReserva {
+
+	public static void buscar(Integer id) {
+		ReservaDAO.buscarReserva(id);
+		
+	}
+
+}

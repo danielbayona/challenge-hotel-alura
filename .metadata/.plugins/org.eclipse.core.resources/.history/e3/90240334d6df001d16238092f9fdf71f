@@ -1,0 +1,20 @@
+package tests;
+
+import java.sql.Date;
+
+import dao.ReservaDAO;
+import model.Reserva;
+
+public class TestReservas {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Date ingreso = Date.valueOf("23-01-2023");
+		Date salida = Date.valueOf("24-01-2023");
+		String forma_pago = "EFECTIVO";
+		Reserva rs = new Reserva(ingreso, salida, forma_pago);
+		ReservaDAO.guardarReserva(rs);
+
+	}
+
+}

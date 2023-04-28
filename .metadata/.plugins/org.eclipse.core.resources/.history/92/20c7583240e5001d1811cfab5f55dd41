@@ -1,0 +1,25 @@
+package tests;
+
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import controller.ValidarUsuario;
+import dao.ValidacionDAO;
+import factory.ConnectionFactory;
+
+public class TestValidacionDAO {
+	
+	public static void main(String[] args) {
+		ValidacionDAO.insertUser("0", "admin");
+		boolean var = ValidarUsuario.validarUsuario("0","admin");
+		System.out.println(var);		
+		
+		
+	}
+	
+
+}

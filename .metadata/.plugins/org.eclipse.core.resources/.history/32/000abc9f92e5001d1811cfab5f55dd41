@@ -1,0 +1,21 @@
+package controller;
+
+import java.sql.Date;
+import java.util.List;
+
+import dao.ReservaDAO;
+import model.Reserva;
+
+public class ControllerReserva {
+
+	public static List<Reserva> buscar(Integer id) {
+		return ReservaDAO.buscarReserva(id);
+		
+	}
+
+	public static void modificar(int id, Date fechaEntrada, Date fechaSalida, String formaPago) {
+		ReservaDAO.modificarReserva(id, fechaEntrada, fechaSalida, formaPago);
+		
+	}
+
+}

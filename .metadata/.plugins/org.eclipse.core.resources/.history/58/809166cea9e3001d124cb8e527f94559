@@ -1,0 +1,20 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import factory.ConnectionFactory;
+import model.Huesped;
+
+public class HuespedDAO {
+
+	public static void registrarHuesped(Huesped h) {
+		try(Connection con = new ConnectionFactory().setConnection()){
+			
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+}

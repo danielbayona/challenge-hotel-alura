@@ -1,0 +1,53 @@
+package factory;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class ConnectionFactory {
+
+	
+	final String URL = "jdbc:mysql://localhost:3306/hotel_alura";
+	final String USER = "root";
+	final String PASSWORD = "LEI52@dna";// por favor remover esto antes de hacer algun commit
+	String user = "admin";
+	String ps = "admin";
+	
+	
+	// en futuras versiones ajustar con comboPooledDataSource de c3p0
+	
+	
+	try(Connection con = DriverManager.getConnection(URL, USER, PASSWORD)){
+		System.out.println("Conexión exitosa.");
+		PreparedStatement pstmt = con.prepareStatement("SELECT usuario,contrasenha FROM validacion WHERE usuario = ?");
+		pstmt.setString(1, user);
+		pstmt.execute();
+		
+		
+		ResultSet resultSet = pstmt.getResultSet();
+		
+		// Tener en cuenta que cada nombre de usuario es unico, por lo tanto el 
+		// while no va a funcionar
+		
+		while (resultSet.next()) {
+			//System.out.println(resultSet.getString("usuario"));
+			//System.out.println(resultSet.getString("contrasenha"));
+			if(resultSet.getString("contrasenha").equals(ps)) {
+				System.out.println("usuario verdadero");
+				
+			}else {
+				System.out.println("no tienes acceso");
+			}
+			
+		}
+	}catch(SQLException e) {
+		throw new RuntimeException(e);
+	}
+	
+	
+	
+
+
+}

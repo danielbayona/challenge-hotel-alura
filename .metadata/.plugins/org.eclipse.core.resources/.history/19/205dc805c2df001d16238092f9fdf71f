@@ -1,0 +1,15 @@
+package model;
+
+import java.sql.Date;
+
+public class Reserva {
+	private int id;
+	private Date fechaEntrada;
+	private Date fechaSalida;
+	private double valorReserva;
+	private String formaPago;
+	
+	
+	
+
+}

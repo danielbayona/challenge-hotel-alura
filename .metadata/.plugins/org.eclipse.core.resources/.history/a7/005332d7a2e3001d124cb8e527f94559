@@ -1,0 +1,51 @@
+package controller;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.time.Instant;
+
+import dao.ReservaDAO;
+import model.Huesped;
+
+public class ValidarHuesped {
+	public static boolean validarHuesped(String nombre, String apellido, Date fecha_nacimiento, String telefono, int idReserva) {
+		ValidarHuesped h  = new ValidarHuesped();
+		if(!h.validarNombreApellido(nombre)){
+			throw new RuntimeException("Nombre vacio");
+		}
+		
+		if(h.validarNombreApellido(apellido)){
+			throw new RuntimeException("Apellido vacio");
+		}
+		
+		if(h.validarFechaNacimiento(fecha_nacimiento)){
+			throw new RuntimeException("Debe ser mayor de 18 años para registrarse como huesped");
+		}
+		
+		if(h.validarTelefono(telefono)){
+			throw new RuntimeException("Telefono no coincide con el formato");
+		}
+		
+		return true;
+		
+	}
+	
+	public boolean validarTelefono(String telefono) {
+		return telefono.matches("[0-9]+");
+	}
+	
+	public boolean validarNombreApellido(String s) {
+		return s != null;
+	}
+	
+	public boolean validarFechaNacimiento(Date s) {
+		return s.getTime()-System.currentTimeMillis()>=18*365*86400;
+	}
+	
+	public boolean validarNumeroReserva(int idReserva) {
+		return ReservaDAO.buscarReserva(idReserva) != null;
+	}
+	
+
+}
+

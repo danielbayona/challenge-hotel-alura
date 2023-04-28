@@ -1,0 +1,33 @@
+package controller;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.time.Instant;
+
+import dao.ReservaDAO;
+import model.Huesped;
+
+public class ValidarHuesped {
+	public static boolean validarHuesped(Huesped h) {
+		return false;
+	}
+	
+	public boolean validarTelefono(String telefono) {
+		return telefono.matches("[0-9]+");
+	}
+	
+	public boolean validarNombreApellido(String s) {
+		return s != null;
+	}
+	
+	public boolean validarFechaNacimiento(Date s) {
+		return s.getTime()-System.currentTimeMillis()>=18*365*86400;
+	}
+	
+	public boolean validarNumeroReserva(int idReserva) {
+		return ReservaDAO.buscarReserva(idReserva) != null;
+	}
+	
+
+}
+

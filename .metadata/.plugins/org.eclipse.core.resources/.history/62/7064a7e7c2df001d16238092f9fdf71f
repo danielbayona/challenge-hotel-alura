@@ -1,0 +1,20 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import factory.ConnectionFactory;
+
+public class ReservaDAO {
+	
+	public void guardarReserva() {
+		try(Connection con = new ConnectionFactory().setConnection()){
+			
+			
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+			
+		}
+	}
+
+}

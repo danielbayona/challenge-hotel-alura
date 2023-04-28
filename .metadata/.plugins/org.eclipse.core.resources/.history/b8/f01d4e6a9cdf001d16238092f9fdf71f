@@ -1,0 +1,59 @@
+package tests;
+
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import factory.ConnectionFactory;
+
+public class TestValidacionDAO {
+	
+	public static void main(String[] args) {
+		
+		final String URL = "jdbc:mysql://localhost:3306/hotel_alura";
+		final String USER = "root";
+		final String PASSWORD = "user123";
+		String user = "admin";
+		String ps = "admin";
+
+		try(Connection con = new ConnectionFactory().setConnection()){
+			System.out.println("Conexión exitosa.");
+			
+			
+			PreparedStatement pstmt = con.prepareStatement("SELECT usuario,contrasenha FROM validacion WHERE usuario = ?");
+			pstmt.setString(1, user);
+			pstmt.execute();
+			
+			
+			ResultSet resultSet = pstmt.getResultSet();
+			resultSet.next();
+			
+			
+			// Tener en cuenta que cada nombre de usuario es unico, por lo tanto el 
+			// while no es conveniente
+			
+			
+			//System.out.println(resultSet.getString("usuario"));
+			//System.out.println(resultSet.getString("contrasenha"));
+			if(resultSet.getString("contrasenha").equals(ps)) {
+				System.out.println("usuario verdadero");
+				
+			}else {
+				System.out.println("no tienes acceso");
+			}
+				
+			
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		
+		
+		
+		
+	}
+	
+
+}

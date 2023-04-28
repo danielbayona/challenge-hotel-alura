@@ -1,0 +1,28 @@
+package model;
+
+import java.sql.Date;
+
+public class Huesped {
+	private String nombre;
+	private String apellido;
+	private Date fecha_nacimiento;
+	private String nacionalidad;
+	private String telefono;
+	private int numero_reserva;
+	
+	
+	public Huesped(String nombre, String apellido, Date fecha_nacimiento, String nacionalidad, String telefono,
+			int numero_reserva) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fecha_nacimiento = fecha_nacimiento;
+		this.nacionalidad = nacionalidad;
+		this.telefono = telefono;
+		this.numero_reserva = numero_reserva;
+	}
+	
+	
+	
+
+}

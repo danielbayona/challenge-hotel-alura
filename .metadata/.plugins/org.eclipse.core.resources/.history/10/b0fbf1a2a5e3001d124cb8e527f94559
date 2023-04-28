@@ -1,0 +1,12 @@
+package dao;
+
+import model.Huesped;
+
+public class HuespedDAO {
+
+	public static void registrarHuesped(Huesped h) {
+		
+		
+	}
+
+}

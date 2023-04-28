@@ -1,0 +1,100 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import factory.ConnectionFactory;
+import model.Huesped;
+
+public class HuespedDAO {
+
+	public static void registrarHuesped(Huesped h) {
+		try(Connection con = new ConnectionFactory().setConnection()){
+			String sql = "INSERT INTO huespedes(nombre,apellido,fecha_nacimiento,nacionalidad,telefono,id_reserva) VALUES (?,?,?,?,?,?)";
+			PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			
+			
+			ps.setString(1, h.getNombre());
+			ps.setString(2, h.getApellido());
+			ps.setDate(3, h.getFecha_nacimiento());
+			ps.setString(4, h.getNacionalidad());
+			ps.setString(5, h.getTelefono());
+			ps.setInt(6, h.getNumero_reserva());
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+			rs.next();
+			h.setId(rs.getInt(1));
+			
+			
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
+	// en caso de introducir un String "", se mostraran todos los valores de la lista	
+	public static List<Huesped> buscarHuesped(String apellido) {
+		try(Connection con = new ConnectionFactory().setConnection()){
+			String sql;
+			//evita errores si el parametro es vacio
+			if(!apellido.equals("")) {
+				sql = "SELECT id,nombre,apellido,fecha_nacimiento,nacionalidad,telefono,id_reserva FROM huespedes WHERE apellido = ?";
+			}else {
+				sql = "SELECT id,nombre,apellido,fecha_nacimiento,nacionalidad,telefono,id_reserva FROM huespedes";
+			}
+			
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			// evita errores si el parametro no se sobrecarga
+			if(!apellido.equals("")) {
+				ps.setString(1, apellido);
+			}
+			
+
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			ArrayList<Huesped> resultados = new ArrayList<>();
+			while(rs.next()) {
+				
+				Huesped h = new Huesped(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getString(5),rs.getString(6),rs.getInt(7));
+				resultados.add(h);
+			}
+			return resultados;
+			
+			
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		
+	}
+
+	public static void modificar(int id, String nombre, String apellido, Date fechaNacimiento, String nacionalidad,
+			String telefono, int idReserva) {
+		try(Connection con = new ConnectionFactory().setConnection()){
+			String sql = "UPDATE huespedes SET nombre=?, apellido=?, fecha_nacimiento=?, nacionalidad=?, telefono=?,numero_reserva=? WHERE id = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, nombre);
+			ps.setString(2, apellido);
+			ps.setDate(3, fechaNacimiento);
+			ps.setString(4, nacionalidad);
+			ps.setString(5, telefono);
+			ps.setInt(6, idReserva);
+			ps.setInt(7, id);
+			
+			
+			ps.execute();
+			
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+}

@@ -1,0 +1,7 @@
+1681947278094	Move compilation unit
+1681947294855	Rename type 'ValidacionDAO'
+1682009821389	Rename type 'validacionDAO'
+1682035867461	Extract local variable 'date'
+1682036567797	Extract local variable 'string'
+1682047921291	Extract local variable 'date'
+1682047935606	Extract local variable 'date2'

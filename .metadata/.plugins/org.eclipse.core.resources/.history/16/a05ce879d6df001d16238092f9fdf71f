@@ -1,0 +1,27 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import factory.ConnectionFactory;
+import model.Reserva;
+
+public class ReservaDAO {
+	
+	public static void guardarReserva(Reserva reserva) {
+		try(Connection con = new ConnectionFactory().setConnection()){
+			String sql = "INSERT INTO reservas (fecha_entrada,fecha_salida,valor,forma_pago) VALUES (?,?,?,?)"; 
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, reserva.getFechaEntrada().toString());
+			ps.setString(2, reserva.getFechaSalida().toString());
+			ps.setDouble(3, reserva.getValorReserva());
+			ps.setString(4, reserva.getFormaPago());
+			
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+			
+		}
+	}
+
+}

@@ -1,0 +1,60 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import factory.ConnectionFactory;
+import model.Reserva;
+
+public class ReservaDAO {
+	
+	public static int guardarReserva(Reserva reserva) {
+		try(Connection con = new ConnectionFactory().setConnection()){
+			String sql = "INSERT INTO reservas (fecha_entrada,fecha_salida,valor,forma_pago) VALUES (?,?,?,?)"; 
+			PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, reserva.getFechaEntrada().toString());
+			ps.setString(2, reserva.getFechaSalida().toString());
+			ps.setDouble(3, reserva.getValorReserva());
+			ps.setString(4, reserva.getFormaPago());
+			
+			ps.execute();
+			ResultSet resultSet = ps.getGeneratedKeys();
+			resultSet.next();
+			reserva.setId(resultSet.getInt(1));
+			//System.out.println("Id Reserva:"+ resultSet.getInt(1));
+			//System.out.println("actualizados: "+ ps.getUpdateCount());
+			return reserva.getId();
+			
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
+			
+		}
+	}
+	
+	public static Reserva buscarReserva(int id) {
+		try(Connection con =new ConnectionFactory().setConnection()){
+			String sql = "SELECT fecha_entrada,fecha_salida,valor,forma_pago FROM reservas WHERE id = ?";
+			PreparedStatement ps= con.prepareStatement(sql);
+			ps.setInt(1, id);
+			
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			rs.next();
+			Reserva InfoReserva = new Reserva(rs.getDate(1),rs.getDate(2),rs.getString(4));
+			return InfoReserva;
+		}catch(SQLException e) {
+			return null;
+			//throw new RuntimeException(e);
+		}
+		
+	}
+	
+	
+	
+	
+	
+
+}

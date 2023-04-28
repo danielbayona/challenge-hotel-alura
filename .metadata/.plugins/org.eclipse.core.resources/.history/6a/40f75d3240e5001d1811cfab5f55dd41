@@ -1,0 +1,11 @@
+package controller;
+
+import dao.ValidacionDAO;
+
+public class ValidarUsuario {
+	public static boolean validarUsuario(String username, String password) {
+		// get user password debe ser publico?
+		return password.equals(ValidacionDAO.getUserPassword(username));
+	}
+
+}

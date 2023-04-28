@@ -1,0 +1,14 @@
+package dao;
+
+import java.sql.Connection;
+
+import factory.ConnectionFactory;
+
+public class validacionDAO {
+	try(Connection con = new ConnectionFactory.setConnection()){
+		
+	}catch(SQLException e) {
+		throw new RuntimeException();
+	}
+
+}
